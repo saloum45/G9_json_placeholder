@@ -42,7 +42,7 @@ export class ArticleComponent implements OnInit {
 
     }
     this.userArticleRecup=JSON.parse(localStorage.getItem('articles')|| '[]');
-    console.log(this.userArticleRecup)
+    console.log(this.userArticleRecup, 'ngOnInit')
     this.userArticleRecup.push(this.articlesByUser)
 
     // console.log('articles', this.articles)
@@ -94,6 +94,6 @@ export class ArticleComponent implements OnInit {
     }
     this.userArticleRecup[0].push(article)
     localStorage.setItem('articles', JSON.stringify(this.userArticleRecup))
-    console.log(this.userArticleRecup)
+    console.log(this.userArticleRecup, 'last version')
   }
 }
