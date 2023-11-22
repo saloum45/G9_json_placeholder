@@ -16,6 +16,7 @@ export class ArticleComponent implements OnInit {
   idUserConnect: any;
   search = "";
   searchResult: any[] = [];
+  details={title:'',body:''};
 
   constructor(private articleService: ArticleService, private route: ActivatedRoute, private router:Router) { }
 
@@ -59,5 +60,10 @@ export class ArticleComponent implements OnInit {
     this.router.navigate(['login']);
     localStorage.removeItem('userOnline');
 
+  }
+
+  showDetails(article:any){
+    this.details=article;
+    console.warn(this.details.title)
   }
 }
