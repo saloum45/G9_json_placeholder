@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../sevices/article.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-article',
@@ -76,7 +77,9 @@ export class ArticleComponent implements OnInit {
 
   getSearch() {
     this.searchResult = [];
-    this.articlesByUser.forEach((element: any) => {
+    let searchTmp=[];
+    searchTmp=JSON.parse(localStorage.getItem('articles')||'[]');
+    searchTmp.forEach((element: any) => {
       if (element.title.toLowerCase().includes(this.search.toLowerCase())) {
         this.searchResult.push(element);
       }
@@ -107,6 +110,15 @@ export class ArticleComponent implements OnInit {
     this.getArticleByUser();
     // this.userArticleRecup.push(article);
     // localStorage.setItem('articles', JSON.stringify(this.userArticleRecup));
-    console.log(this.userArticleRecup);
+    // console.log(this.userArticleRecup);
+    this.sweetMessage('success','Félicitation','Article ajouté avec succès');
+  }
+
+  sweetMessage(icon:any,title:any,text:any) {
+    Swal.fire({
+      icon: icon,
+      title: title,
+      text: text,
+    });
   }
 }
