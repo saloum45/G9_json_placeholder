@@ -30,18 +30,18 @@
       box-shadow: lightgray 0 0 5px;
     }
   }
- 
+
   #titre{
     font-size: 14px;
   }
   .btnAjouter{
     background-color: #d46f4d;
     margin-top: 20px;
-    margin-left: 70px;
+    /* margin-left: 70px; */
     color: white;
     box-sizing: border-box;
     padding: 5px 10px;
     border: none;
     box-shadow: lightgray 3px 3px 7px;
-    
+
   }
