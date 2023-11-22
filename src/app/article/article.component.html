@@ -1,0 +1,43 @@
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btnAjouter " data-bs-toggle="modal" data-bs-target="#exampleModal">
+Ajouter articles
+</button>
+<div class="row container mx-auto">
+    <div class="face-snap-card col-4 " *ngFor="let article of articles">
+        <div *ngIf="article.userId" >
+            <h2 id="titre">{{article.title}}</h2>
+            <p>Mis en ligne le </p>
+            <img src="https://img.freepik.com/premium-photo/luxury-interior-room-design-uhd-wallpaper_871881-52626.jpg?size=626&ext=jpg&ga=GA1.1.522834921.1700648147&semt=sph" alt="">
+            <p>{{article.body}}</p>
+            <p>
+                <button id="button">detail </button>
+                <button id="button">Archive </button>
+
+        </div>
+             
+    </div>
+
+</div>
+
+
+
+  
+  <!-- Modal pour ajouter article -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary  " data-bs-dismiss="modal">Save changes</button>
+          <button type="button" class="btn btn-secondary text-dark" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
