@@ -13,7 +13,7 @@ export class ArticleComponent implements OnInit {
   photo:string='';
   titre:string='';
   texte:string='';
-
+  imageUrlFixed="https://img.freepik.com/premium-photo/luxury-interior-room-design-uhd-wallpaper_871881-52626.jpg?size=626&ext=jpg&ga=GA1.1.522834921.1700648147&semt=sph";
   articles: any;
   userId: any;
   articlesByUser: any[] = [];
@@ -21,7 +21,7 @@ export class ArticleComponent implements OnInit {
   idUserConnect: any;
   search = "";
   searchResult: any[] = [];
-  details={title:'',body:''};
+  details={title:'',body:'',image:''};
 
   userArticle:any[]=[]
   userArticleRecup:any;
@@ -88,11 +88,12 @@ export class ArticleComponent implements OnInit {
       userId:this.idUserConnect,
       id:this.userArticleRecup.length +1,
       title:this.titre,
-      body:this.texte
+      body:this.texte,
+      image:this.photo,
 
     }
     this.userArticleRecup[0].push(article)
-    localStorage.setItem('articles', JSON.stringify(this.userArticle))
+    localStorage.setItem('articles', JSON.stringify(this.userArticleRecup));
     console.log(this.userArticleRecup)
   }
 }
