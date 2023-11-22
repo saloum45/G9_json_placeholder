@@ -88,11 +88,12 @@ export class ArticleComponent implements OnInit {
       userId:this.idUserConnect,
       id:this.userArticleRecup.length +1,
       title:this.titre,
-      body:this.texte
+      body:this.texte,
+      image:this.photo
 
     }
     this.userArticleRecup[0].push(article)
-    localStorage.setItem('articles', JSON.stringify(this.userArticle))
+    localStorage.setItem('articles', JSON.stringify(this.userArticleRecup))
     console.log(this.userArticleRecup)
   }
 }
