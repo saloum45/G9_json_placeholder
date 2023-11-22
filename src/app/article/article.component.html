@@ -4,8 +4,8 @@
 Ajouter articles
 </button>
 <div class="row container mx-auto">
-    <div class="face-snap-card col-4 " *ngFor="let article of articles">
-        <div *ngIf="article.userId" >
+    <div class="face-snap-card col-4 " *ngFor="let article of articlesByUser">
+        <div>
             <h2 id="titre">{{article.title}}</h2>
             <p>Mis en ligne le </p>
             <img src="https://img.freepik.com/premium-photo/luxury-interior-room-design-uhd-wallpaper_871881-52626.jpg?size=626&ext=jpg&ga=GA1.1.522834921.1700648147&semt=sph" alt="">
