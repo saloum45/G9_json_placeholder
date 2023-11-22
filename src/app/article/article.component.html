@@ -28,7 +28,13 @@
       <h2 id="titre">{{ article.title }}</h2>
       <p>Mis en ligne le</p>
       <img
-        src="https://img.freepik.com/premium-photo/luxury-interior-room-design-uhd-wallpaper_871881-52626.jpg?size=626&ext=jpg&ga=GA1.1.522834921.1700648147&semt=sph"
+        *ngIf="article.image==null"
+        [src]="imageUrlFixed"
+        alt=""
+      />
+      <img
+        *ngIf="article.image!=null"
+        [src]="article.image"
         alt=""
       />
       <p>{{ article.body }}</p>
@@ -63,18 +69,18 @@
         <form>
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Image:</label>
-              <input type="text" name="image" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="photo">   
+              <input type="text" name="image" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="photo">
             </div>
             <div class="mb-3">
               <label for="exampleInput" class="form-label">Titre:</label>
-              <input type="text" name="titre" class="form-control" id="exampleInput" aria-describedby="emailHelp" [(ngModel)]="titre">   
+              <input type="text" name="titre" class="form-control" id="exampleInput" aria-describedby="emailHelp" [(ngModel)]="titre">
             </div>
             <div class="form">
                 <label for="Textarea2" class="mb-3">Texte:</label>
                 <textarea class="form-control" name="text" placeholder="Apercu de votre article" id="Textarea2" style="height: 100px" [(ngModel)]="texte"></textarea>
               </div>
-            
-           
+
+
           </form>
       </div>
       <div class="modal-footer">
@@ -108,8 +114,18 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <img
+        <!-- <img
         src="https://img.freepik.com/premium-photo/luxury-interior-room-design-uhd-wallpaper_871881-52626.jpg?size=626&ext=jpg&ga=GA1.1.522834921.1700648147&semt=sph"
+        alt=""
+      /> -->
+      <img
+        *ngIf="details.image==null"
+        [src]="imageUrlFixed"
+        alt=""
+      />
+      <img
+        *ngIf="details.image!=null"
+        [src]="details.image"
         alt=""
       />
         <!-- {{details.title}} -->
