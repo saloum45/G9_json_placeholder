@@ -14,6 +14,8 @@ export class ArticleComponent implements OnInit{
   articlesByUser:any[]=[];
   userConnect:any;
   idUserConnect:any;
+  search="";
+  searchResult:any[]=[];
 
   constructor(private articleService:ArticleService, private route:ActivatedRoute){}
   
@@ -22,6 +24,8 @@ export class ArticleComponent implements OnInit{
     this.articleService.getArticle().subscribe((reponse:any) => {
       this.articles=reponse;
       this.getArticleByUser(reponse);
+      // this.searchResult=reponse;
+      console.log(this.articles)
     })
       console.log('articles',this.articles) 
       this.userConnect=this.articles.find((element:any)=>element.userId==this.idUserConnect  );
@@ -30,12 +34,25 @@ export class ArticleComponent implements OnInit{
 
   getArticleByUser(test:any){
     this.articles.forEach((element:any) => {
-      console.log('okay')
+      // console.log('okay')
       if(element.userId==this.idUserConnect){
-       this.articlesByUser.push(element)
+        this.articlesByUser.push(element)
       }
+      this.searchResult=this.articlesByUser;
       
     });
+     
+
+    // });
+  }
+
+  getSearch(){
+    this.searchResult=[];
+    this.articlesByUser.forEach((element:any) => {
+        if (element.title.toLowerCase().includes(this.search.toLowerCase())) {
+          this.searchResult.push(element);
+        }
+      });
   }
 
 }
