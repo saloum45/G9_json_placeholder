@@ -4,15 +4,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TestComponent } from './test/test.component';
-import { ArticlesComponent } from './articles/articles.component';
 import { ApiService } from './api.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ArticleComponent } from './article/article.component';
+import { DetailArticleComponent } from './detail-article/detail-article.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TestComponent,
-    ArticlesComponent
+    ArticleComponent,
+    DetailArticleComponent
   ],
   imports: [
     BrowserModule,
