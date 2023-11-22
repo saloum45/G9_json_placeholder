@@ -26,18 +26,18 @@
   <div class="face-snap-card col-4" *ngFor="let article of searchResult">
     <div *ngIf="article.userId">
       <h2 id="titre">{{ article.title }}</h2>
-      <p>Mis en ligne le</p>
-      <img
+      <!-- <p>Mis en ligne le</p> -->
+      <img id="image"
         *ngIf="article.image==null"
         [src]="imageUrlFixed"
         alt=""
       />
-      <img
+      <img id="image"
         *ngIf="article.image!=null"
         [src]="article.image"
         alt=""
       />
-      <p>{{ article.body }}</p>
+      <p id="description">{{ article.body }}</p>
       <p>
         <button id="button" data-bs-toggle="modal" data-bs-target="#details" (click)="showDetails(article)">detail</button>
         <button id="button">Archive</button>
