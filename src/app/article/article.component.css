@@ -34,7 +34,7 @@
   #titre{
     font-size: 14px;
   }
-  .btnAjouter{
+  .btnAjouter, .boutonModal{
     background-color: #d46f4d;
     margin-top: 20px;
     /* margin-left: 70px; */
@@ -45,3 +45,12 @@
     box-shadow: lightgray 3px 3px 7px;
 
   }
+.fermer{
+    margin-top: 20px;
+    /* margin-left: 70px; */
+    color: white;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border: none;
+    box-shadow: lightgray 3px 3px 7px; 
+}
