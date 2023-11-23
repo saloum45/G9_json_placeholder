@@ -24,8 +24,11 @@ export class ArticleComponent implements OnInit {
   searchResult: any[] = [];
   details={title:'',body:'',image:''};
 
-  userArticle:any[]=[]
+  userArticle:any[]=[];
   userArticleRecup:any;
+  pageActuelle: number=1;
+  articlesParPage: number=4;
+  // recupArticle: any=JSON.parse(localStorage.getItem('articles')||'[]').reverse();
 
   textButton='Archiver';
 
@@ -144,33 +147,23 @@ export class ArticleComponent implements OnInit {
 
   
 
-  supprimer(parameval:any){
-    let articlesTmp=JSON.parse(localStorage.getItem('articles')||'[]');
-    Swal.fire({
-      title: "Etes vous sur de vouloir supprimer cet evaluation?",
-      text: "Etes vous sur de vouloir supprimer cet evaluation? ",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#007bff",
-      cancelButtonColor: "#CE6A6B ",
-      confirmButtonText: "oui, supprimer!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-         // on recupere l'indexe de l'element qu'on veut suprimer
-        const indexElement=articlesTmp.indexOf(parameval)
-        // on verifie qu'il existe
-        if(indexElement!=-1){
-          //  supprimer 1 élément à partir de l'index spécifié dans la liste
-         articlesTmp.splice(indexElement, 1);
-         localStorage.setItem('eval', JSON.stringify(articlesTmp));
-    }
-        Swal.fire({
-          title: "Felicitations...!",
-          text: "L'evaluation a ete supprimer avec succes",
-          icon: "success"
-        });
-      }
-    });
+ 
    
+
+  // Méthode pour déterminer les articles à afficher sur la page actuelle
+  getArticlesPage(): any[] {
+    const indexDebut = (this.pageActuelle - 1) * this.articlesParPage;
+    const indexFin = indexDebut + this.articlesParPage;
+    return this.searchResult.reverse().slice(indexDebut, indexFin);
+  }
+   // Méthode pour générer la liste des pages
+   get pages(): number[] {
+    const totalPages = Math.ceil(this.searchResult.length / this.articlesParPage);
+    return Array(totalPages).fill(0).map((_, index) => index + 1);
+  }
+
+  // Méthode pour obtenir le nombre total de pages
+  get totalPages(): number {
+    return Math.ceil(this.searchResult.length / this.articlesParPage);
   }
 }
