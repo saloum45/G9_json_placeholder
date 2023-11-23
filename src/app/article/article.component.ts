@@ -27,7 +27,7 @@ export class ArticleComponent implements OnInit {
   userArticle:any[]=[];
   userArticleRecup:any;
   pageActuelle: number=1;
-  articlesParPage: number=4;
+  articlesParPage: number=6;
   // recupArticle: any=JSON.parse(localStorage.getItem('articles')||'[]').reverse();
 
   textButton='Archiver';
@@ -50,7 +50,7 @@ export class ArticleComponent implements OnInit {
     //   }
     // this.userArticleRecup=JSON.parse(localStorage.getItem('articles')|| '[]');
     // console.log(this.userArticleRecup)
-    
+
 
     // console.log('articles', this.articles)
     // this.userConnect = this.articles.find((element: any) => element.userId == this.idUserConnect);
@@ -65,12 +65,12 @@ export class ArticleComponent implements OnInit {
       }
 
     });
-   
+
     this.searchResult=JSON.parse(localStorage.getItem('articles')||'[]');
 
 
 
-    
+
   }
 
   getSearch() {
@@ -87,7 +87,6 @@ export class ArticleComponent implements OnInit {
   deconnexion() {
     this.router.navigate(['login']);
     localStorage.removeItem('userOnline');
-
   }
 
   showDetails(article:any){
@@ -98,7 +97,7 @@ export class ArticleComponent implements OnInit {
     let articlesTmp=JSON.parse(localStorage.getItem('articles')||'[]');
     let article={
       userId:this.idUserConnect,
-      id:this.userArticleRecup.length +1,
+      id:articlesTmp.length +1,
       title:this.titre,
       body:this.texte,
       image:this.photo,
@@ -125,14 +124,14 @@ export class ArticleComponent implements OnInit {
     this.titre=paramArticle.title;
     this.photo=paramArticle.image;
     this.texte=paramArticle.body;
-  
+
   }
   modifierArticle(){
     let articleModif=JSON.parse(localStorage.getItem('articles')||'[]');
     this.currentArticle.title=this.titre;
     this.currentArticle.body=this.texte;
     this.currentArticle.image=this.photo;
-    localStorage.setItem('articles', JSON.stringify(articleModif)) 
+    localStorage.setItem('articles', JSON.stringify(articleModif))
     this.sweetMessage('success', 'Félicitation', 'Article modifié avec succès');
     console.log(articleModif )
   }
@@ -140,15 +139,15 @@ export class ArticleComponent implements OnInit {
 
   toggleEtat(prof: any) {
     prof.etat = (prof.etat === 'active') ? 'inactive' : 'active';
-  
+
     // Vous pouvez ajouter ici la logique pour mettre à jour l'état du professeur dans votre base de données ou tout autre traitement nécessaire
   }
-  
 
-  
 
- 
-   
+
+
+
+
 
   // Méthode pour déterminer les articles à afficher sur la page actuelle
   getArticlesPage(): any[] {
