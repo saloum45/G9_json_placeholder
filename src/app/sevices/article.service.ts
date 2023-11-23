@@ -9,7 +9,8 @@ export class ArticleService {
   constructor(private http:HttpClient) { }
 
   getArticle(){
-    return this.http.get('https://jsonplaceholder.typicode.com/posts')
+    // 'https://jsonplaceholder.typicode.com/users?email='+email
+    return this.http.get('https://jsonplaceholder.typicode.com/posts?userId=1');
   }
 
 
