@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../sevices/article.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-article',
@@ -26,6 +27,8 @@ export class ArticleComponent implements OnInit {
   userArticle:any[]=[]
   userArticleRecup:any;
 
+  textButton='Archiver';
+
   constructor(private articleService: ArticleService, private route: ActivatedRoute, private router:Router) { }
 
   ngOnInit() {
@@ -39,12 +42,12 @@ export class ArticleComponent implements OnInit {
     })
 
     // if (!localStorage.getItem('articles')) {
-    //   localStorage.setItem('articles', JSON.stringify(this.userArticle));
+    //    localStorage.setItem('articles', JSON.stringify(this.userArticle));
 
-    // }
-    this.userArticleRecup=JSON.parse(localStorage.getItem('articles')|| '[]');
-    console.log(this.userArticleRecup)
-    this.userArticleRecup=this.articlesByUser;
+    //   }
+    // this.userArticleRecup=JSON.parse(localStorage.getItem('articles')|| '[]');
+    // console.log(this.userArticleRecup)
+    
 
     // console.log('articles', this.articles)
     // this.userConnect = this.articles.find((element: any) => element.userId == this.idUserConnect);
@@ -59,24 +62,19 @@ export class ArticleComponent implements OnInit {
       }
 
     });
-    if (localStorage.getItem('articles')==null ||  localStorage.getItem('articles')==undefined) {
-      localStorage.setItem('articles',JSON.stringify(this.articlesByUser));
-    }
+   
     this.searchResult=JSON.parse(localStorage.getItem('articles')||'[]');
-    // this.searchResult = this.articlesByUser;
-    // if (localStorage.getItem('articles')==null || localStorage.getItem('articles')==undefined) {
-
-    // }else{
-    //   this.searchResult =JSON.parse(localStorage.getItem('articles')||'[]');
-    // }
 
 
-    // });
+
+    
   }
 
   getSearch() {
     this.searchResult = [];
-    this.articlesByUser.forEach((element: any) => {
+    let searchTmp=[];
+    searchTmp=JSON.parse(localStorage.getItem('articles')||'[]');
+    searchTmp.forEach((element: any) => {
       if (element.title.toLowerCase().includes(this.search.toLowerCase())) {
         this.searchResult.push(element);
       }
@@ -107,6 +105,72 @@ export class ArticleComponent implements OnInit {
     this.getArticleByUser();
     // this.userArticleRecup.push(article);
     // localStorage.setItem('articles', JSON.stringify(this.userArticleRecup));
-    console.log(this.userArticleRecup);
+    // console.log(this.userArticleRecup);
+    this.sweetMessage('success','Félicitation','Article ajouté avec succès');
+  }
+
+  sweetMessage(icon:any,title:any,text:any) {
+    Swal.fire({
+      icon: icon,
+      title: title,
+      text: text,
+    });
+  }
+  currentArticle:any;
+  charger(paramArticle:any){
+    this.currentArticle=paramArticle;
+    this.titre=paramArticle.title;
+    this.photo=paramArticle.image;
+    this.texte=paramArticle.body;
+  
+  }
+  modifierArticle(){
+    let articleModif=JSON.parse(localStorage.getItem('articles')||'[]');
+    this.currentArticle.title=this.titre;
+    this.currentArticle.body=this.texte;
+    this.currentArticle.image=this.photo;
+    localStorage.setItem('articles', JSON.stringify(articleModif)) 
+    this.sweetMessage('success', 'Félicitation', 'Article modifié avec succès');
+    console.log(articleModif )
+  }
+
+
+  toggleEtat(prof: any) {
+    prof.etat = (prof.etat === 'active') ? 'inactive' : 'active';
+  
+    // Vous pouvez ajouter ici la logique pour mettre à jour l'état du professeur dans votre base de données ou tout autre traitement nécessaire
+  }
+  
+
+  
+
+  supprimer(parameval:any){
+    let articlesTmp=JSON.parse(localStorage.getItem('articles')||'[]');
+    Swal.fire({
+      title: "Etes vous sur de vouloir supprimer cet evaluation?",
+      text: "Etes vous sur de vouloir supprimer cet evaluation? ",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#007bff",
+      cancelButtonColor: "#CE6A6B ",
+      confirmButtonText: "oui, supprimer!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+         // on recupere l'indexe de l'element qu'on veut suprimer
+        const indexElement=articlesTmp.indexOf(parameval)
+        // on verifie qu'il existe
+        if(indexElement!=-1){
+          //  supprimer 1 élément à partir de l'index spécifié dans la liste
+         articlesTmp.splice(indexElement, 1);
+         localStorage.setItem('eval', JSON.stringify(articlesTmp));
+    }
+        Swal.fire({
+          title: "Felicitations...!",
+          text: "L'evaluation a ete supprimer avec succes",
+          icon: "success"
+        });
+      }
+    });
+   
   }
 }

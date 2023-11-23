@@ -23,24 +23,28 @@
 </div>
 
 <div class="row container mx-auto" >
-  <div class="face-snap-card col-4" *ngFor="let article of searchResult">
-    <div *ngIf="article.userId">
+  <div class="face-snap-card col-4" *ngFor="let article of searchResult" [ngClass]="{ gris:article.etat=='inactive' }">
+    <div *ngIf="article.userId" >
       <h2 id="titre">{{ article.title }}</h2>
-      <p>Mis en ligne le</p>
-      <img
+      <div class="d-flex justify-content-end mb-2" >
+
+          <div  class="btn mx-2 "  id="button"  (click)="toggleEtat(article)">{{ (article.etat === 'active') ? 'Désarchiver' : 'Archiver' }}</div>
+      </div>
+
+      <img id="image"
         *ngIf="article.image==null"
         [src]="imageUrlFixed"
         alt=""
       />
-      <img
+      <img id="image"
         *ngIf="article.image!=null"
         [src]="article.image"
         alt=""
       />
-      <p>{{ article.body }}</p>
+      <p id="description">{{ article.body }}</p>
       <p>
         <button id="button" data-bs-toggle="modal" data-bs-target="#details" (click)="showDetails(article)">detail</button>
-        <button id="button">Archive</button>
+        <button id="button" data-bs-toggle="modal" data-bs-target="#modifModal" (click)="charger(article)">Modifier</button>
       </p>
     </div>
   </div>
@@ -86,6 +90,58 @@
       <div class="modal-footer">
         <button type="button" class="btn boutonModal" data-bs-dismiss="modal" (click)="addArticle()">
           Ajouter
+        </button>
+        <button
+          type="button"
+          class="btn fermer text-dark"
+          data-bs-dismiss="modal"
+        >
+          Annuler
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal pour modifier article -->
+<div
+  class="modal fade"
+  id="modifModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modifModal">Modifier Article</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Image:</label>
+              <input type="text" name="image" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="photo">
+            </div>
+            <div class="mb-3">
+              <label for="exampleInput" class="form-label">Titre:</label>
+              <input type="text" name="titre" class="form-control" id="exampleInput" aria-describedby="emailHelp" [(ngModel)]="titre">
+            </div>
+            <div class="form">
+                <label for="Textarea2" class="mb-3">Texte:</label>
+                <textarea class="form-control" name="text" placeholder="Apercu de votre article" id="Textarea2" style="height: 100px" [(ngModel)]="texte"></textarea>
+              </div>
+
+
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn boutonModal" data-bs-dismiss="modal" (click)="modifierArticle()">
+          Modifier
         </button>
         <button
           type="button"
