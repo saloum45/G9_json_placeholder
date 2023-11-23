@@ -128,12 +128,21 @@ export class ArticleComponent implements OnInit {
   }
   modifierArticle() {
     let articleModif = JSON.parse(localStorage.getItem('articles') || '[]');
-    this.currentArticle.title = this.titre;
-    this.currentArticle.body = this.texte;
-    this.currentArticle.image = this.photo;
-    localStorage.setItem('articles', JSON.stringify(articleModif));
-    this.sweetMessage('success', 'Félicitation', 'Article modifié avec succès');
-    console.log(articleModif)
+    // this.currentArticle.title = this.titre;
+    // this.currentArticle.body = this.texte;
+    // this.currentArticle.image = this.photo;
+    // localStorage.setItem('articles', JSON.stringify(articleModif));
+    // this.sweetMessage('success', 'Félicitation', 'Article modifié avec succès');
+    // console.log(articleModif)
+    articleModif.forEach((element:any) => {
+      if (element.id==this.currentArticle.id) {
+        element.titre=this.titre;
+        element.image=this.photo;
+        element.body=this.texte
+      }
+    });
+    localStorage.setItem('articles',JSON.stringify(articleModif));
+    this.searchResult=JSON.parse(localStorage.getItem('articles') || '[]');
   }
 
 
