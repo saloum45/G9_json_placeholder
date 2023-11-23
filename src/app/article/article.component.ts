@@ -24,8 +24,11 @@ export class ArticleComponent implements OnInit {
   searchResult: any[] = [];
   details={title:'',body:'',image:''};
 
-  userArticle:any[]=[]
+  userArticle:any[]=[];
   userArticleRecup:any;
+  pageActuelle: number=1;
+  articlesParPage: number=4;
+  // recupArticle: any=JSON.parse(localStorage.getItem('articles')||'[]').reverse();
 
   constructor(private articleService: ArticleService, private route: ActivatedRoute, private router:Router) { }
 
@@ -120,5 +123,22 @@ export class ArticleComponent implements OnInit {
       title: title,
       text: text,
     });
+  }
+
+  // Méthode pour déterminer les articles à afficher sur la page actuelle
+  getArticlesPage(): any[] {
+    const indexDebut = (this.pageActuelle - 1) * this.articlesParPage;
+    const indexFin = indexDebut + this.articlesParPage;
+    return this.searchResult.reverse().slice(indexDebut, indexFin);
+  }
+   // Méthode pour générer la liste des pages
+   get pages(): number[] {
+    const totalPages = Math.ceil(this.searchResult.length / this.articlesParPage);
+    return Array(totalPages).fill(0).map((_, index) => index + 1);
+  }
+
+  // Méthode pour obtenir le nombre total de pages
+  get totalPages(): number {
+    return Math.ceil(this.searchResult.length / this.articlesParPage);
   }
 }
